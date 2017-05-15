@@ -41,9 +41,22 @@ var TimeAgo = React.createClass({
     this.forceUpdate();
   },
 
+  formatTimeAgosValue(value) {
+    switch(true) {
+      case (value.includes('a few seconds')):
+        return value.replace(/a few seconds/g, 'seconds')
+
+      case (value.includes('a minute')):
+        return value.replace(/a minute/g, '1 min')
+
+      case (value.includes('minutes')):
+        return value.replace(/minutes/g, 'mins')
+    }
+  },
+
   render() {
     return (
-      <Text {...this.props}>{moment(this.props.time).fromNow(this.props.hideAgo)}</Text>
+      <Text {...this.props}>{this.formatTimeAgosValue(moment(this.props.time).fromNow(this.props.hideAgo))}</Text>
     );
   }
 });
